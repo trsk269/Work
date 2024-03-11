@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add your meta tags, title, and stylesheets here -->
+</head>
+<body>
+    <h1>Cart Items</h1>
+    <div id="cart-items-container">
+        <% cartItems.forEach(item => { %>
+            <div><%= item.product_name %>: <%= item.product_price %></div>
+        <% }); %>
+    </div>
+</body>
+</html>

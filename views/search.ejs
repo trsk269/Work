@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <style>
+        /* Apply general styles to body */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Style product image */
+        .product-image {
+            width: 100px; /* Adjust as needed */
+            height: 100px; /* Adjust as needed */
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        /* Style product name */
+        .product-name {
+            font-weight: bold;
+        }
+
+        /* Style product price */
+        .product-price {
+            color: green;
+        }
+
+        /* Style the input fields */
+        input[type="text"],
+        select {
+            margin-bottom: 10px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Style the product list container */
+        #productList {
+            margin-top: 20px;
+        }
+
+        /* Style each product item */
+        #productList > div {
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Style the pagination container */
+        #pagination {
+            margin-top: 20px;
+        }
+
+        /* Style pagination buttons */
+        #pagination button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        /* Style pagination button for current page */
+        #pagination button.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div id="cart-icon">
+        <img src="cart-icon.png" alt="Cart" id="cart-icon-img">
+        <span id="cart-count">0</span>
+    </div>
+
+    <div id="cart-items-container">
+        <!-- Cart items will be displayed here -->
+    </div>
+
+    <input type="text" id="searchInput" placeholder="Search products">
+    <select id="categorySelect">
+        <option value="All">All</option>
+        <option value="sweet">Sweet</option>
+        <option value="sweet">Spicy</option>
+        <!-- Add other category options here -->
+    </select>
+    <select id="sortSelect">
+        <option value="product_price">Price</option>
+        <!-- Add other sorting options here -->
+    </select>
+
+    <div id="productList"></div>
+    <div id="pagination"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById("searchInput");
+            const categorySelect = document.getElementById("categorySelect");
+            const sortSelect = document.getElementById("sortSelect");
+            const productList = document.getElementById("productList");
+            const pagination = document.getElementById("pagination");
+            const cartIcon = document.getElementById("cart-icon");
+            const cartCount = document.getElementById("cart-count");
+            const cartItemsContainer = document.getElementById("cart-items-container");
+            let cartItems = [];
+
+            let page = 1;
+            const limit = 5;
+
+            // Function to update the cart count
+            function updateCartCount() {
+                cartCount.textContent = cartItems.length;
+            }
+
+            // Function to handle adding a product to the cart
+            function addToCart(product) {
+                cartItems.push(product);
+                updateCartCount(); // Update the cart count
+                renderCartItems();
+                // Send a POST request to add the product to the cart
+                fetch('/add-to-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(product)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('Product added to cart successfully');
+                    } else {
+                        console.error('Failed to add product to cart');
+                    }
+                })
+                .catch(error => console.error('Error adding product to cart:', error));
+            }
+
+            // Function to render cart items in the cart container
+            function renderCartItems() {
+                cartItemsContainer.innerHTML = "";
+                cartItems.forEach(item => {
+                    const cartItem = document.createElement("div");
+                    cartItem.textContent = item.product_name + ": " + item.product_price;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+            }
+
+            // Function to fetch products
+            function fetchProducts() {
+                const search = searchInput.value;
+                const category = categorySelect.value;
+                const sort = sortSelect.value;
+                const url = `/api/products?page=${page}&limit=${limit}&search=${search}&category=${category}&sort=${sort}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        renderProducts(data.products);
+                        renderPagination(data.total);
+                    })
+                    .catch(error => console.error('Error fetching products:', error));
+            }
+
+            // Function to render products
+            function renderProducts(products) {
+                productList.innerHTML = "";
+                products.forEach(product => {
+                    const productDiv = document.createElement("div");
+                    productDiv.className = "product-item";
+
+                    const productImage = document.createElement("img");
+                    productImage.src = product.product_Image;
+                    productImage.alt = product.product_name;
+                    productImage.className = "product-image";
+                    productDiv.appendChild(productImage);
+
+                    const productInfo = document.createElement("div");
+                    productInfo.className = "product-info";
+
+                    const productName = document.createElement("div");
+                    productName.textContent = product.product_name;
+                    productName.className = "product-name";
+                    productInfo.appendChild(productName);
+
+                    const productPrice = document.createElement("div");
+                    productPrice.textContent = `Price: ${product.product_price}`;
+                    productPrice.className = "product-price";
+                    productInfo.appendChild(productPrice);
+
+                    // Add "Add to Cart" button
+                    const addToCartButton = document.createElement("button");
+                    addToCartButton.textContent = "Add to Cart";
+                    addToCartButton.className = "add-to-cart-button";
+                    addToCartButton.addEventListener("click", () => {
+                        // Call a function to handle adding the product to the cart
+                        addToCart(product);
+                    });
+                    productInfo.appendChild(addToCartButton);
+
+                    productDiv.appendChild(productInfo);
+                    productList.appendChild(productDiv);
+                });
+            }
+
+            // Function to render pagination buttons
+            function renderPagination(total) {
+                const numPages = Math.ceil(total / limit);
+                pagination.innerHTML = "";
+                for (let i = 1; i <= numPages; i++) {
+                    const pageButton = document.createElement("button");
+                    pageButton.textContent = i;
+                    pageButton.addEventListener("click", () => {
+                        page = i;
+                        fetchProducts();
+                    });
+                    pagination.appendChild(pageButton);
+                }
+            }
+
+            // Fetch products when the page loads
+            fetchProducts();
+
+            // Event listeners for search input, category select, and sort select
+            searchInput.addEventListener("input", fetchProducts);
+            categorySelect.addEventListener("change", fetchProducts);
+            sortSelect.addEventListener("change", fetchProducts);
+
+            // Event listener for clicking on the cart icon to view cart items
+            cartIcon.addEventListener("click", renderCartItems);
+        });
+    </script>
+</body>
+</html>

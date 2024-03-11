@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">  
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            font-family: 'Playfair Display', serif;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .segment {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 20px;
+            text-align: center;
+            border-radius: 15px;
+        }
+
+        .segment1 {
+            background-color: #7badd6;
+background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */ /* Set your desired background color for segment 1 */
+            order: 2; /* Change the order to align right */
+        }
+
+        .segment2 {
+            background-size: cover;
+            background-image: url("/img2.jpeg");  /* Set your desired background color for segment 2 */
+            order: 1; /* Change the order to align left */
+        }
+
+        .form-container {
+            width: 350px; /* Set your desired width for the form container */
+            height: 400px; /* Set your desired height for the form container */
+            border-radius: 15px; /* Set your desired border radius for rounded edges */
+            background-color: #ffffff; /* Set your desired background color for the form container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add a box shadow for a subtle effect */
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        input {
+            width: 15rem; /* Make the input boxes fill the container width */
+            padding: 10px;
+            margin-bottom: 8px; /* Space between input boxes */
+            border: 1px solid #c9c0c0;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        
+        .submit-btn {
+            background-color: #4caf50; /* Set your desired background color for the button */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 8rem;
+            transition: background-color 0.3s ease; /* Add a smooth transition for hover effect */
+        }
+        
+        .submit-btn:hover {
+            background-color: #45a049; /* Set your desired background color for the button on hover */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="segment segment2">
+        <!-- Placeholder content for segment2 -->
+    </div>
+    <div class="segment segment1">
+        <div class="form-container">
+            <!-- Your form content goes here -->
+            <h2>Signup</h2>
+            <form action="/signup" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="username" placeholder="enter your name" required autocomplete="off">
+                 </div>
+                 <div class="form-group">
+                    <label for="password">password</label>
+                    <input type="password" name="password" id="password" placeholder="password" required>
+                 </div>
+                 <button type="submit" class="submit-btn">Signup</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

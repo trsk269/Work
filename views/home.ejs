@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Eat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+  <div class="topnav" id="myTopnav">
+    <a href="#home" class="active">Let's Eat</a>
+    <a href="#about" class="right">
+        <i class="fa fa-shopping-cart"></i> Cart
+        <!-- Display product count here -->
+        <span id="cart-count" class="product-count">2</span>
+    </a>
+    <% if (username) { %>
+        <!-- Navigate to profile page if logged in -->
+        <a href="/profile" class="right"><i class="fa fa-user"></i> <%= username %></a>
+    <% } else { %>
+        <!-- Display the "Sign In" button if not logged in -->
+        <a href="#contact" class="right"><i class="fa fa-sign-in"></i> Sign</a>
+    <% } %>
+    <a href="/search" id="e" class="right"><i class="fa fa-search"></i> Search</a>
+</div>
+
+      <a href="/search" class="s" class="right"><i class="fa fa-search"></i> Search</a>
+      <h2>Isn't tricky to choose?</h2>
+      
+  <div class="carousel-container">
+    <div class="products" id="productContainer">
+      <!-- Images will be dynamically added here using JavaScript -->
+    </div>
+    <div class="arrows">
+      <button class="arrow arrow-left" onclick="scrollImages(-1)" id="leftArrow">&#10094;</button>
+      <button class="arrow arrow-right" onclick="scrollImages(1)" id="rightArrow">&#10095;</button>
+    </div>
+  </div>
+
+
+
+  <center><h2>Words from Our Happy Customers</h2></center>
+  <center>
+    <div class="testimonial">
+        <div class="slideshow-container">
+            <div class="mySlides fade">
+                <img src="https://b.zmtcdn.com/data/pictures/0/19998380/03e9cd96ece1975b4efaef39c8599808_o2_featured_v2.jpg" alt="Slide 1">
+            </div>
+
+            <div class="mySlides fade">
+                <img src="https://b.zmtcdn.com/data/dish_photos/347/e461212b85ef67ac7c9c07b0ccccd347.jpg" alt="Slide 2">
+            </div>
+
+            <div class="mySlides fade">
+                <img src="https://b.zmtcdn.com/data/dish_photos/31d/623ebe42751301d8ac83ded782e9d31d.jpg" alt="Slide 3">
+            </div>
+        </div>
+    </div>
+  </center>
+
+<center><h2 class="heading">Reserve a Table</h2></center>
+  <div class="popular-loc">
+    <div class="seat" style="background-image:url('https://images.unsplash.com/photo-1599458252573-56ae36120de1?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');">
+      <!-- Your other content -->
+      <button class="book">Book Your food and Table</button>
+    </div>
+    <div class="seat" style="background-image:url('https://t3.ftcdn.net/jpg/02/54/04/58/360_F_254045845_JTRwArCF4fxHzValwEDNJAhCiml98zuH.jpg');">
+      <!-- Your other content -->
+      <button class="book">Review the Food</button>
+    </div>
+  </div>
+
+
+
+
+  <center><h2>Ready Aaaaa....</h2></center>
+
+  <div class="container">
+    <div class="column" id="column1"></div>
+    <div class="column" id="column2"></div>
+    <div class="column" id="column3"></div>
+</div>
+
+
+<div class="feedback">
+  <button class="f_button"><i class="fa fa-send-o" style="font-size:40px;"></i></button>
+<input type="text" class="fe" placeholder="Let Me write ?">
+</div>
+
+<footer class="swiggy-footer">
+  <div class="footer-links">
+      <a href="#">About Us</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Contact Us</a>
+  </div>
+  <div class="footer-social">
+      <a href="#"><i class="fa fa-facebook"></i></a>
+      <a href="#"><i class="fa fa-twitter"></i></a>
+      <a href="#"><i class="fa fa-instagram"></i></a>
+      <a href="#"><i class="fa fa-linkedin"></i></a>
+  </div>
+  <div class="footer-info">
+      <p>&copy; 2024 Let's Eat. All rights reserved.</p>
+      <p>Order food online from the our restaurants near you.</p>
+  </div>
+</footer>
+
+  <script>
+    const imageUrls = [
+    
+    
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1675667625/PC_Creative%20refresh/Biryani_2.png',
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029848/PC_Creative%20refresh/3D_bau/banners_new/Chinese.png', 
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029843/PC_Creative%20refresh/3D_bau/banners_new/Juice.png', 
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029858/PC_Creative%20refresh/3D_bau/banners_new/Rolls.png', 
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029851/PC_Creative%20refresh/3D_bau/banners_new/Ice_Creams.png',
+
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029845/PC_Creative%20refresh/3D_bau/banners_new/Cakes.png',
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029853/PC_Creative%20refresh/3D_bau/banners_new/Parotta.png', 
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029850/PC_Creative%20refresh/3D_bau/banners_new/Dosa.png', 
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029853/PC_Creative%20refresh/3D_bau/banners_new/Paratha.png', 
+    'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_288,h_360/v1674029846/PC_Creative%20refresh/3D_bau/banners_new/Coffee.png'
+  ];
+
+  const productContainer = document.getElementById('productContainer');
+  const products = document.querySelector('.products');
+  const leftArrow = document.getElementById('leftArrow');
+  const rightArrow = document.getElementById('rightArrow');
+  let currentIndex = 0;
+
+  function createImage(url, index) {
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = `Product ${index + 1}`;
+    img.classList.add('mainimages');
+    
+    // Add click event listener to each image
+    img.addEventListener('click', function() {
+        window.location.href = '/search'; // Adjust the URL as needed
+    });
+    
+    products.appendChild(img);
+}
+
+
+
+  function scrollImages(direction) {
+    const imageWidth = document.querySelector('.mainimages').offsetWidth + 2 * 1.5;
+    currentIndex += direction;
+    const translateValue = -currentIndex * imageWidth;
+    products.style.transform = `translateX(${translateValue}px)`;
+    updateArrows();
+  }
+
+  function updateArrows() {
+    leftArrow.disabled = currentIndex === 0;
+    rightArrow.disabled = currentIndex >= imageUrls.length - 5;
+  }
+
+  // Create initial set of images
+  imageUrls.forEach(createImage);
+  updateArrows();
+
+
+
+  var slideIndex = 0;
+  showSlides();
+  
+  function showSlides() {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) { slideIndex = 1 }
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 2000); // Change slide every 2 seconds (adjust as needed)
+  }
+  
+
+
+
+  const imageUrls1 = [
+  'https://b.zmtcdn.com/data/dish_photos/f15/78c348dc8fff642b657098f39b1dff15.jpg',
+  'https://b.zmtcdn.com/data/dish_photos/6b8/7e51068302c7a130aeb8b28c14d2e6b8.png',
+  'https://b.zmtcdn.com/data/dish_photos/f4c/869e36f525b9b5a6094d797d2f129f4c.jpg'
+]; // Array of image URLs for column 1
+const imageUrls2 = [
+  'https://b.zmtcdn.com/data/dish_photos/20a/d2b82bc09b0a3b00639995c8b9f6e20a.jpg',
+  'https://b.zmtcdn.com/data/dish_photos/499/612dd9c701280b9130700b5c68a1c499.jpg',
+  'https://b.zmtcdn.com/data/dish_photos/bd7/7f165f4656a5c4165c7927e15dabdbd7.jpg'
+];
+
+const imageUrls3 = [
+  'https://b.zmtcdn.com/data/dish_photos/d63/459866913352ef2be7d03add85c97d63.jpg',
+  'https://b.zmtcdn.com/data/dish_photos/d6d/5ae08177c57a5c808adeb1b2e8867d6d.jpg',
+  'https://b.zmtcdn.com/data/dish_photos/184/71131bdf3292f3c49d5fa845f9e0e184.jpg'
+];
+
+const column1 = document.getElementById('column1');
+const column2 = document.getElementById('column2');
+const column3 = document.getElementById('column3');
+
+function createCard(container, imageUrl, title, text) {
+  const card = document.createElement('div');
+  card.classList.add('custom-card');
+
+  const img = document.createElement('img');
+  img.src = imageUrl;
+  img.alt = 'Card Image';
+  img.classList.add('card-img-top');
+
+  const cardBody = document.createElement('div');
+  cardBody.classList.add('card-body');
+
+  const cardTitle = document.createElement('h5');
+  cardTitle.classList.add('card-title');
+  cardTitle.textContent = title;
+
+  const cardText = document.createElement('p');
+  cardText.classList.add('card-text');
+  cardText.textContent = text;
+
+  cardBody.appendChild(cardTitle);
+  cardBody.appendChild(cardText);
+
+  card.appendChild(img);
+  card.appendChild(cardBody);
+
+  img.addEventListener('click', function() {
+    window.location.href = '/search'; // Adjust the URL as needed
+});
+
+  container.appendChild(card);
+}
+
+// Example titles and texts for each column
+const titlesColumn1 = ['Delicious Biryani', 'Dum Biryani', 'Leg Piece Biryani'];
+
+const textsColumn1 = [
+  'Enjoy our flavorful biryani with a mix of aromatic spices.',
+  'Dum is always special to Eat Let me try it once again',
+  'Succulent chicken legs paired with aromatic rice.'
+];
+
+const titlesColumn2 = ['Black Valvet', 'Cherry Cake', 'Red Velvet'];
+
+const textsColumn2 = [
+  'Black Valvet,Rich, decadent desserts for indulgence.',
+  'Childhood Cherry is back i want it right now',
+  'Red Valvet,Rich, decadent desserts for indulgence.'
+];
+
+
+const titlesColumn3 = ['French Frice', 'Starters', 'Leg Pieces'];
+
+const textsColumn3 = [
+  'Perfect for snacking or side dishes',
+  'The kickstart your meal with tantalizing flavors',
+  'Succulent cuts of meat, perfect for hearty meals'
+];
+
+// Create cards for each column
+titlesColumn1.forEach((title, index) => {
+  createCard(column1, imageUrls1[index], title, textsColumn1[index]);
+});
+
+titlesColumn2.forEach((title, index) => {
+  createCard(column2, imageUrls2[index], title, textsColumn2[index]);
+});
+
+
+titlesColumn3.forEach((title, index) => {
+  createCard(column3, imageUrls3[index], title, textsColumn3[index]);
+});
+
+
+
+</script>
+</body>
+</html>
